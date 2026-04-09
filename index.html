@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BookStore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <h1>📚 BookStore</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Books</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h2>Discover Your Next Favorite Book</h2>
+    <button onclick="exploreBooks()">Explore Books</button>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Featured Books</h2>
+
+    <div class="grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/200x300/?book,reading">
+        <h3>Atomic Habits</h3>
+        <button onclick="viewProduct()">View Details</button>
+      </div>
+
+      <div class="card">
+        <img src="https://source.unsplash.com/200x300/?books,library">
+        <h3>Rich Dad Poor Dad</h3>
+        <button onclick="viewProduct()">View Details</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 BookStore</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
