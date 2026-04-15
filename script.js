@@ -2,14 +2,12 @@ function exploreBooks() {
   window.location.href = "products.html";
 }
 
-function viewProduct(book) {
-
+function viewProduct() {
   dataLayer.push({
-    event: "view_item",
-    item_name: book.name
+    event: "view_item"
   });
 
-  window.location.href = `product-detail.html?name=${book.name}&price=${book.price}&img=${book.img}`;
+  window.location.href = "product-detail.html";
 }
 
 function addToCart() {
