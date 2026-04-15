@@ -31,14 +31,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section>
   <div class="container">
-    <div class="product">
-      <img src="atomic.jpg">
-      <div>
-        <h2>Atomic Habits</h2>
-        <p>Price: ₹499</p>
+    <h2>Books Collection</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <img src="richdad.jpg">
+        <h3>Rich Dad Poor Dad</h3>
+        <button onclick="viewProduct({
+          name: 'Rich Dad Poor Dad',
+          price: '₹399',
+          img: 'richdad.jpg'
+        })">View</button>
         <button onclick="addToCart()">Add to Cart</button>
-        <button onclick="buyNow()">Buy Now</button>
       </div>
+
+      <div class="card">
+        <img src="ikigai.jpg">
+        <h3>Ikigai</h3>
+        <button onclick="viewProduct({
+          name: 'Ikigai',
+          price: '₹299',
+          img: 'ikigai.jpg'
+        })">View</button>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="card">
+        <img src="atomic.jpg">
+        <h3>Atomic Habits</h3>
+        <button onclick="viewProduct({
+          name: 'Atomic Habits',
+          price: '₹499',
+          img: 'atomic.jpg'
+        })">View</button>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+
     </div>
   </div>
 </section>
