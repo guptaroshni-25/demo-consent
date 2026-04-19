@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="91a9d011-bcac-4e22-9be8-df99a488ea60" data-blockingmode="auto" type="text/javascript"></script>
+ <!-- <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="91a9d011-bcac-4e22-9be8-df99a488ea60" data-blockingmode="auto" type="text/javascript"></script> -->
+  <script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+
+// Default consent (before user action)
+gtag('consent', 'default', {
+  'analytics_storage': 'denied',
+  'ad_storage': 'denied'
+});
+</script>
   <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -55,7 +65,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </div>
 </section>
-
+<div id="consent-banner" style="
+position: fixed;
+bottom: 0;
+width: 100%;
+background: #222;
+color: #fff;
+padding: 15px;
+text-align: center;
+z-index: 9999;
+">
+  <p>We use cookies to improve your experience.</p>
+  <button onclick="acceptConsent()">Accept</button>
+  <button onclick="rejectConsent()">Reject</button>
+</div>
 <footer>
   <p>© 2026 BookStore</p>
 </footer>
