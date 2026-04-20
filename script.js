@@ -7,42 +7,56 @@ function exploreBooks() {
 }
 
 function viewProduct(book) {
-  dataLayer.push({
-    event: "view_item",
-    item_name: book.name
-  });
 
-  window.location.href = `product-detail.html?name=${book.name}&price=${book.price}&img=${book.img}`;
+  // 🔴 Safety check
+  if (!book) {
+    console.error("Book object missing ❌");
+    return;
+  }
+
+  console.log("Book clicked:", book); // debug
+
+  // Push event to GTM
+  if (window.dataLayer) {
+    dataLayer.push({
+      event: "view_item",
+      item_name: book.name
+    });
+  }
+
+  // Redirect safely
+  window.location.href =
+    "product-detail.html?name=" + encodeURIComponent(book.name) +
+    "&price=" + encodeURIComponent(book.price) +
+    "&img=" + encodeURIComponent(book.img);
 }
 
 function addToCart() {
-  dataLayer.push({
-    event: "add_to_cart"
-  });
-
+  if (window.dataLayer) {
+    dataLayer.push({ event: "add_to_cart" });
+  }
   alert("Added to cart");
 }
 
 function buyNow() {
-  dataLayer.push({
-    event: "purchase"
-  });
-
+  if (window.dataLayer) {
+    dataLayer.push({ event: "purchase" });
+  }
   alert("Purchase initiated");
 }
 
 function submitForm(event) {
   event.preventDefault();
 
-  dataLayer.push({
-    event: "form_submit"
-  });
+  if (window.dataLayer) {
+    dataLayer.push({ event: "form_submit" });
+  }
 
   alert("Form submitted");
 }
 
 // ===============================
-// CONSENT FUNCTIONS (NEW)
+// CONSENT FUNCTIONS
 // ===============================
 
 function acceptConsent() {
@@ -70,7 +84,7 @@ function rejectConsent() {
 }
 
 // ===============================
-// LOAD CONSENT STATE (VERY IMPORTANT)
+// LOAD CONSENT STATE
 // ===============================
 
 window.onload = function () {
@@ -94,7 +108,6 @@ window.onload = function () {
     if (banner) banner.style.display = "none";
   }
   else {
-    // No choice yet → show banner
     if (banner) banner.style.display = "block";
   }
 };
