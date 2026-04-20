@@ -8,23 +8,16 @@ function exploreBooks() {
 
 function viewProduct(book) {
 
-  // 🔴 Safety check
   if (!book) {
     console.error("Book object missing ❌");
     return;
   }
 
-  console.log("Book clicked:", book); // debug
+  dataLayer.push({
+    event: "view_item",
+    item_name: book.name
+  });
 
-  // Push event to GTM
-  if (window.dataLayer) {
-    dataLayer.push({
-      event: "view_item",
-      item_name: book.name
-    });
-  }
-
-  // Redirect safely
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
     "&price=" + encodeURIComponent(book.price) +
