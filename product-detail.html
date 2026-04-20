@@ -24,6 +24,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <title>Book Detail</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
+ <script>
+const params = new URLSearchParams(window.location.search);
+
+document.getElementById("product-name").innerText = params.get("name");
+document.getElementById("product-price").innerText = "Price: " + params.get("price");
+document.getElementById("product-img").src = params.get("img");
+</script>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRKZ2WJP"
@@ -42,10 +50,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section>
   <div class="container">
     <div class="product">
-      <img src="atomic.jpg">
+      <img id="product-img">
       <div>
-        <h2>Atomic Habits</h2>
-        <p>Price: ₹499</p>
+        <h2 id="product-name"></h2>
+<p id="product-price"></p>
         <button onclick="addToCart()">Add to Cart</button>
         <button onclick="buyNow()">Buy Now</button>
       </div>
