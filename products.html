@@ -2,33 +2,43 @@
 <html>
 <head>
 
- <!-- <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="91a9d011-bcac-4e22-9be8-df99a488ea60" data-blockingmode="auto" type="text/javascript"></script> -->
-  <script>
+<script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 
-// Default consent (before user action)
+// Default consent
 gtag('consent', 'default', {
   'analytics_storage': 'denied',
   'ad_storage': 'denied'
 });
 </script>
-  
-  <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KRKZ2WJP');</script>
-<!-- End Google Tag Manager -->
-  <title>Books</title>
-  <link rel="stylesheet" href="style.css">
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+  w[l]=w[l]||[];
+  w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true;
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+  f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KRKZ2WJP');
+</script>
+
+<title>Books</title>
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRKZ2WJP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+
+<!-- GTM noscript -->
+<noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRKZ2WJP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
 <header>
   <div class="container nav">
     <h1>📚 Books</h1>
@@ -49,10 +59,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="thinkandgrow.png">
         <h3>Think and Grow Rich</h3>
         <button onclick="viewProduct({
-  name: 'Think and Grow Rich',
-  price: '₹349',
-  img: 'thinkandgrow.png'
-})">View</button>
+          name: 'Think and Grow Rich',
+          price: '₹349',
+          img: 'thinkandgrow.png'
+        })">View</button>
         <button onclick="addToCart()">Add to Cart</button>
       </div>
 
@@ -60,10 +70,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="ikigai.jpg">
         <h3>Ikigai</h3>
         <button onclick="viewProduct({
-  name: 'Ikigai',
-  price: '₹299',
-  img: 'ikigai.jpg'
-})">View</button>
+          name: 'Ikigai',
+          price: '₹299',
+          img: 'ikigai.jpg'
+        })">View</button>
         <button onclick="addToCart()">Add to Cart</button>
       </div>
 
@@ -71,16 +81,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="alchemist.jpg">
         <h3>The Alchemist</h3>
         <button onclick="viewProduct({
-  name: 'The Alchemist',
-  price: '₹399',
-  img: 'alchemist.jpg'
-})">View</button>
+          name: 'The Alchemist',
+          price: '₹399',
+          img: 'alchemist.jpg'
+        })">View</button>
         <button onclick="addToCart()">Add to Cart</button>
       </div>
     </div>
 
   </div>
 </section>
+
+<!-- 🔥 GRANULAR CONSENT BANNER -->
 <div id="consent-banner" style="
 position: fixed;
 bottom: 0;
@@ -88,17 +100,94 @@ width: 100%;
 background: #222;
 color: #fff;
 padding: 15px;
-text-align: center;
 z-index: 9999;
 ">
-  <p>We use cookies to improve your experience.</p>
-  <button onclick="acceptConsent()">Accept</button>
-  <button onclick="rejectConsent()">Reject</button>
+
+  <p>Manage your cookie preferences</p>
+
+  <label>
+    <input type="checkbox" id="analyticsConsent">
+    Enable Analytics Cookies
+  </label><br>
+
+  <label>
+    <input type="checkbox" id="adsConsent">
+    Enable Advertising Cookies
+  </label><br><br>
+
+  <button onclick="acceptAll()">Accept All</button>
+  <button onclick="rejectAll()">Reject All</button>
+  <button onclick="savePreferences()">Save Preferences</button>
+
 </div>
+
 <footer>
   <p>© 2026 BookStore</p>
 </footer>
 
 <script src="script.js"></script>
+
+<script>
+// CONSENT LOGIC
+
+function acceptAll() {
+  gtag('consent', 'update', {
+    analytics_storage: 'granted',
+    ad_storage: 'granted'
+  });
+
+  localStorage.setItem("analyticsConsent", true);
+  localStorage.setItem("adsConsent", true);
+
+  hideBanner();
+}
+
+function rejectAll() {
+  gtag('consent', 'update', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied'
+  });
+
+  localStorage.setItem("analyticsConsent", false);
+  localStorage.setItem("adsConsent", false);
+
+  hideBanner();
+}
+
+function savePreferences() {
+  const analytics = document.getElementById("analyticsConsent").checked;
+  const ads = document.getElementById("adsConsent").checked;
+
+  gtag('consent', 'update', {
+    analytics_storage: analytics ? 'granted' : 'denied',
+    ad_storage: ads ? 'granted' : 'denied'
+  });
+
+  localStorage.setItem("analyticsConsent", analytics);
+  localStorage.setItem("adsConsent", ads);
+
+  hideBanner();
+}
+
+function hideBanner() {
+  document.getElementById("consent-banner").style.display = "none";
+}
+
+// Load saved consent
+window.onload = function () {
+  const analytics = localStorage.getItem("analyticsConsent");
+  const ads = localStorage.getItem("adsConsent");
+
+  if (analytics !== null && ads !== null) {
+    gtag('consent', 'update', {
+      analytics_storage: analytics === "true" ? 'granted' : 'denied',
+      ad_storage: ads === "true" ? 'granted' : 'denied'
+    });
+
+    hideBanner();
+  }
+};
+</script>
+
 </body>
 </html>
