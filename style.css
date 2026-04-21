@@ -1,74 +1,48 @@
 /* =========================
-   CONSENT BANNER STYLING
+   SIMPLE CONSENT BANNER
 ========================= */
 
 #consent-banner {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #1e1e1e;
+  background: #222;
   color: #fff;
-  padding: 20px;
+  padding: 12px 20px;
   z-index: 9999;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-}
-
-#consent-banner p {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-#consent-banner label {
-  display: block;
-  margin: 5px 0;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-#consent-banner input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-#consent-banner button {
-  margin-top: 10px;
-  margin-right: 10px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
   font-size: 13px;
 }
 
-/* Button styles */
-#consent-banner button:nth-child(6) {
+#consent-banner label {
+  margin-right: 15px;
+  font-size: 13px;
+}
+
+#consent-banner input {
+  margin-right: 5px;
+}
+
+#consent-banner button {
+  padding: 6px 10px;
+  margin-left: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+/* simple colors */
+#consent-banner button:nth-of-type(1) {
   background: #4CAF50;
   color: white;
 }
 
-#consent-banner button:nth-child(7) {
+#consent-banner button:nth-of-type(2) {
   background: #f44336;
   color: white;
 }
 
-#consent-banner button:nth-child(8) {
-  background: #2196F3;
+#consent-banner button:nth-of-type(3) {
+  background: #555;
   color: white;
-}
-
-/* Hover effect */
-#consent-banner button:hover {
-  opacity: 0.9;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  #consent-banner {
-    font-size: 12px;
-    padding: 15px;
-  }
-
-  #consent-banner button {
-    width: 100%;
-    margin-bottom: 8px;
-  }
 }
