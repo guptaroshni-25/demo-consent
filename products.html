@@ -6,11 +6,22 @@
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 
-// Default consent
+// ✅ Default consent
 gtag('consent', 'default', {
   'analytics_storage': 'denied',
   'ad_storage': 'denied'
 });
+
+// ✅ EARLY CONSENT RESTORE (FIX ⭐)
+const analytics = localStorage.getItem("analyticsConsent");
+const ads = localStorage.getItem("adsConsent");
+
+if (analytics !== null && ads !== null) {
+  gtag('consent', 'update', {
+    analytics_storage: analytics === "true" ? 'granted' : 'denied',
+    ad_storage: ads === "true" ? 'granted' : 'denied'
+  });
+}
 </script>
 
 <!-- Google Tag Manager -->
@@ -92,7 +103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </div>
 </section>
 
-<!-- 🔥 GRANULAR CONSENT BANNER -->
+<!-- CONSENT BANNER -->
 <div id="consent-banner" style="
 position: fixed;
 bottom: 0;
@@ -128,7 +139,7 @@ z-index: 9999;
 <script src="script.js"></script>
 
 <script>
-// CONSENT LOGIC
+// BUTTON LOGIC
 
 function acceptAll() {
   gtag('consent', 'update', {
@@ -172,21 +183,6 @@ function savePreferences() {
 function hideBanner() {
   document.getElementById("consent-banner").style.display = "none";
 }
-
-// Load saved consent
-window.onload = function () {
-  const analytics = localStorage.getItem("analyticsConsent");
-  const ads = localStorage.getItem("adsConsent");
-
-  if (analytics !== null && ads !== null) {
-    gtag('consent', 'update', {
-      analytics_storage: analytics === "true" ? 'granted' : 'denied',
-      ad_storage: ads === "true" ? 'granted' : 'denied'
-    });
-
-    hideBanner();
-  }
-};
 </script>
 
 </body>
