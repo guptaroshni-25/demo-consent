@@ -50,28 +50,27 @@ function submitForm(event) {
 
 
 // ===============================
-// CONSENT FUNCTIONS (UPDATED ⭐)
+// CONSENT FUNCTIONS (FIXED V2 ⭐)
 // ===============================
 
 // Accept All
 function acceptAll() {
   console.log("Accept button clicked ✅");
+
   gtag('consent', 'update', {
     analytics_storage: 'granted',
-    ad_storage: 'granted'
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted'
   });
 
-  // ✅ SET COOKIE
   document.cookie = "consent_status=accepted; path=/";
 
-  // ✅ PUSH TO DATALAYER
-  if (window.dataLayer) {
-    dataLayer.push({
-      event: "consent_update",
-      analytics_storage: "granted",
-      ad_storage: "granted"
-    });
-  }
+  dataLayer.push({
+    event: "consent_update",
+    analytics_storage: "granted",
+    ad_storage: "granted"
+  });
 
   localStorage.setItem("analyticsConsent", true);
   localStorage.setItem("adsConsent", true);
@@ -79,30 +78,32 @@ function acceptAll() {
   hideBanner();
 }
 
+
 // Reject All
 function rejectAll() {
+  console.log("Reject button clicked ❌");
+
   gtag('consent', 'update', {
     analytics_storage: 'denied',
-    ad_storage: 'denied'
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
   });
 
-  // ✅ SET COOKIE
   document.cookie = "consent_status=rejected; path=/";
 
-  // ✅ PUSH TO DATALAYER
-  if (window.dataLayer) {
-    dataLayer.push({
-      event: "consent_update",
-      analytics_storage: "denied",
-      ad_storage: "denied"
-    });
-  }
+  dataLayer.push({
+    event: "consent_update",
+    analytics_storage: "denied",
+    ad_storage: "denied"
+  });
 
   localStorage.setItem("analyticsConsent", false);
   localStorage.setItem("adsConsent", false);
 
   hideBanner();
 }
+
 
 // Save Custom Preferences
 function savePreferences() {
@@ -111,20 +112,19 @@ function savePreferences() {
 
   gtag('consent', 'update', {
     analytics_storage: analytics ? 'granted' : 'denied',
-    ad_storage: ads ? 'granted' : 'denied'
+    ad_storage: ads ? 'granted' : 'denied',
+    ad_user_data: ads ? 'granted' : 'denied',
+    ad_personalization: ads ? 'granted' : 'denied'
   });
 
-  // ✅ SET COOKIE BASED ON CHOICE
-  document.cookie = "consent_status=" + (analytics ? "accepted" : "rejected") + "; path=/";
+  document.cookie =
+    "consent_status=" + (analytics || ads ? "accepted" : "rejected") + "; path=/";
 
-  // ✅ PUSH TO DATALAYER
-  if (window.dataLayer) {
-    dataLayer.push({
-      event: "consent_update",
-      analytics_storage: analytics ? "granted" : "denied",
-      ad_storage: ads ? "granted" : "denied"
-    });
-  }
+  dataLayer.push({
+    event: "consent_update",
+    analytics_storage: analytics ? "granted" : "denied",
+    ad_storage: ads ? "granted" : "denied"
+  });
 
   localStorage.setItem("analyticsConsent", analytics);
   localStorage.setItem("adsConsent", ads);
@@ -132,7 +132,11 @@ function savePreferences() {
   hideBanner();
 }
 
-// Hide banner
+
+// ===============================
+// BANNER CONTROL
+// ===============================
+
 function hideBanner() {
   const banner = document.getElementById("consent-banner");
   if (banner) banner.style.display = "none";
@@ -140,16 +144,25 @@ function hideBanner() {
 
 
 // ===============================
-// LOAD CONSENT UI STATE
+// LOAD CONSENT STATE (VERY IMPORTANT ⭐)
 // ===============================
 
 document.addEventListener("DOMContentLoaded", function () {
+
   const banner = document.getElementById("consent-banner");
 
   const analytics = localStorage.getItem("analyticsConsent");
   const ads = localStorage.getItem("adsConsent");
 
   if (analytics !== null && ads !== null) {
+
+    gtag('consent', 'update', {
+      analytics_storage: analytics === "true" ? 'granted' : 'denied',
+      ad_storage: ads === "true" ? 'granted' : 'denied',
+      ad_user_data: ads === "true" ? 'granted' : 'denied',
+      ad_personalization: ads === "true" ? 'granted' : 'denied'
+    });
+
     const analyticsCheckbox = document.getElementById("analyticsConsent");
     const adsCheckbox = document.getElementById("adsConsent");
 
@@ -157,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (adsCheckbox) adsCheckbox.checked = (ads === "true");
 
     hideBanner();
+
   } else {
     if (banner) banner.style.display = "block";
   }
