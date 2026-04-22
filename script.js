@@ -55,6 +55,7 @@ function submitForm(event) {
 
 // Accept All
 function acceptAll() {
+  console.log("Accept button clicked ✅");
   gtag('consent', 'update', {
     analytics_storage: 'granted',
     ad_storage: 'granted'
