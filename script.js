@@ -60,6 +60,18 @@ function acceptAll() {
     ad_storage: 'granted'
   });
 
+  // ✅ SET COOKIE
+  document.cookie = "consent_status=accepted; path=/";
+
+  // ✅ PUSH TO DATALAYER
+  if (window.dataLayer) {
+    dataLayer.push({
+      event: "consent_update",
+      analytics_storage: "granted",
+      ad_storage: "granted"
+    });
+  }
+
   localStorage.setItem("analyticsConsent", true);
   localStorage.setItem("adsConsent", true);
 
@@ -72,6 +84,18 @@ function rejectAll() {
     analytics_storage: 'denied',
     ad_storage: 'denied'
   });
+
+  // ✅ SET COOKIE
+  document.cookie = "consent_status=rejected; path=/";
+
+  // ✅ PUSH TO DATALAYER
+  if (window.dataLayer) {
+    dataLayer.push({
+      event: "consent_update",
+      analytics_storage: "denied",
+      ad_storage: "denied"
+    });
+  }
 
   localStorage.setItem("analyticsConsent", false);
   localStorage.setItem("adsConsent", false);
@@ -89,6 +113,18 @@ function savePreferences() {
     ad_storage: ads ? 'granted' : 'denied'
   });
 
+  // ✅ SET COOKIE BASED ON CHOICE
+  document.cookie = "consent_status=" + (analytics ? "accepted" : "rejected") + "; path=/";
+
+  // ✅ PUSH TO DATALAYER
+  if (window.dataLayer) {
+    dataLayer.push({
+      event: "consent_update",
+      analytics_storage: analytics ? "granted" : "denied",
+      ad_storage: ads ? "granted" : "denied"
+    });
+  }
+
   localStorage.setItem("analyticsConsent", analytics);
   localStorage.setItem("adsConsent", ads);
 
@@ -103,7 +139,7 @@ function hideBanner() {
 
 
 // ===============================
-// LOAD CONSENT UI STATE (NOT FOR GTM ⭐)
+// LOAD CONSENT UI STATE
 // ===============================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -113,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const ads = localStorage.getItem("adsConsent");
 
   if (analytics !== null && ads !== null) {
-    // Set checkbox states
     const analyticsCheckbox = document.getElementById("analyticsConsent");
     const adsCheckbox = document.getElementById("adsConsent");
 
