@@ -132,52 +132,7 @@ z-index: 9999;
 
 <script src="script.js"></script>
 
-<script>
-// 🔥 CONSENT BUTTON LOGIC
 
-function acceptAll() {
-  gtag('consent', 'update', {
-    analytics_storage: 'granted',
-    ad_storage: 'granted'
-  });
-
-  localStorage.setItem("analyticsConsent", true);
-  localStorage.setItem("adsConsent", true);
-
-  hideBanner();
-}
-
-function rejectAll() {
-  gtag('consent', 'update', {
-    analytics_storage: 'denied',
-    ad_storage: 'denied'
-  });
-
-  localStorage.setItem("analyticsConsent", false);
-  localStorage.setItem("adsConsent", false);
-
-  hideBanner();
-}
-
-function savePreferences() {
-  const analytics = document.getElementById("analyticsConsent").checked;
-  const ads = document.getElementById("adsConsent").checked;
-
-  gtag('consent', 'update', {
-    analytics_storage: analytics ? 'granted' : 'denied',
-    ad_storage: ads ? 'granted' : 'denied'
-  });
-
-  localStorage.setItem("analyticsConsent", analytics);
-  localStorage.setItem("adsConsent", ads);
-
-  hideBanner();
-}
-
-function hideBanner() {
-  document.getElementById("consent-banner").style.display = "none";
-}
-</script>
 
 </body>
 </html>
