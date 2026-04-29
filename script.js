@@ -207,6 +207,8 @@ function hideBanner() {
 // ===============================
 document.addEventListener("DOMContentLoaded", function () {
 
+   sessionStorage.setItem("sessionUser", "active");
+
   const banner = document.getElementById("consent-banner");
 
   const analytics = localStorage.getItem("analyticsConsent");
