@@ -1,11 +1,20 @@
 // ===============================
+// GLOBAL USER VARIABLE
+// ===============================
+var userStatus = "guest";
+
+
+// ===============================
 // NAVIGATION FUNCTIONS
 // ===============================
-
 function exploreBooks() {
   window.location.href = "products.html";
 }
 
+
+// ===============================
+// VIEW PRODUCT (DYNAMIC)
+// ===============================
 function viewProduct(book) {
 
   if (!book) {
@@ -13,9 +22,16 @@ function viewProduct(book) {
     return;
   }
 
+  // Store selected product globally (IMPORTANT)
+  localStorage.setItem("selectedProduct", JSON.stringify(book));
+
   dataLayer.push({
     event: "view_item",
-    item_name: book.name
+    ecommerce: {
+      item_name: book.name,
+      price: book.price,
+      category: "books"
+    }
   });
 
   window.location.href =
@@ -24,39 +40,85 @@ function viewProduct(book) {
     "&img=" + encodeURIComponent(book.img);
 }
 
-function addToCart() {
-  if (window.dataLayer) {
-    dataLayer.push({ event: "add_to_cart" });
+
+// ===============================
+// ADD TO CART (DYNAMIC)
+// ===============================
+function addToCart(book) {
+
+  // If book not passed → get from localStorage
+  if (!book) {
+    book = JSON.parse(localStorage.getItem("selectedProduct"));
   }
+
+  dataLayer.push({
+    event: "add_to_cart",
+    ecommerce: {
+      item_name: book.name,
+      price: book.price,
+      category: "books"
+    },
+    user: {
+      user_type: userStatus
+    }
+  });
+
   alert("Added to cart");
 }
 
-function buyNow() {
-  if (window.dataLayer) {
-    dataLayer.push({ event: "purchase" });
+
+// ===============================
+// PURCHASE (DYNAMIC)
+// ===============================
+function buyNow(book) {
+
+  if (!book) {
+    book = JSON.parse(localStorage.getItem("selectedProduct"));
   }
+
+  dataLayer.push({
+    event: "purchase",
+    ecommerce: {
+      item_name: book.name,
+      price: book.price,
+      category: "books"
+    },
+    user: {
+      user_type: userStatus
+    }
+  });
+
   alert("Purchase initiated");
 }
 
+
+// ===============================
+// FORM SUBMIT (WITH DATA)
+// ===============================
 function submitForm(event) {
   event.preventDefault();
 
-  if (window.dataLayer) {
-    dataLayer.push({ event: "form_submit" });
-  }
+  const name = document.getElementById("userName").value;
+  const email = document.getElementById("userEmail").value;
+
+  dataLayer.push({
+    event: "form_submit",
+    user: {
+      name: name,
+      email: email
+    }
+  });
 
   alert("Form submitted");
 }
 
 
 // ===============================
-// CONSENT FUNCTIONS (FIXED V2 ⭐)
+// CONSENT FUNCTIONS
 // ===============================
 
 // Accept All
 function acceptAll() {
-  console.log("Accept button clicked ✅");
-
   gtag('consent', 'update', {
     analytics_storage: 'granted',
     ad_storage: 'granted',
@@ -81,8 +143,6 @@ function acceptAll() {
 
 // Reject All
 function rejectAll() {
-  console.log("Reject button clicked ❌");
-
   gtag('consent', 'update', {
     analytics_storage: 'denied',
     ad_storage: 'denied',
@@ -105,7 +165,7 @@ function rejectAll() {
 }
 
 
-// Save Custom Preferences
+// Save Preferences
 function savePreferences() {
   const analytics = document.getElementById("analyticsConsent")?.checked;
   const ads = document.getElementById("adsConsent")?.checked;
@@ -136,7 +196,6 @@ function savePreferences() {
 // ===============================
 // BANNER CONTROL
 // ===============================
-
 function hideBanner() {
   const banner = document.getElementById("consent-banner");
   if (banner) banner.style.display = "none";
@@ -144,9 +203,8 @@ function hideBanner() {
 
 
 // ===============================
-// LOAD CONSENT STATE (VERY IMPORTANT ⭐)
+// LOAD CONSENT STATE
 // ===============================
-
 document.addEventListener("DOMContentLoaded", function () {
 
   const banner = document.getElementById("consent-banner");
@@ -162,12 +220,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ad_user_data: ads === "true" ? 'granted' : 'denied',
       ad_personalization: ads === "true" ? 'granted' : 'denied'
     });
-
-    const analyticsCheckbox = document.getElementById("analyticsConsent");
-    const adsCheckbox = document.getElementById("adsConsent");
-
-    if (analyticsCheckbox) analyticsCheckbox.checked = (analytics === "true");
-    if (adsCheckbox) adsCheckbox.checked = (ads === "true");
 
     hideBanner();
 
