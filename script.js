@@ -103,7 +103,7 @@ function submitForm(event) {
 
   dataLayer.push({
     event: "form_submit",
-    user: {
+    user_data: {
       name: name,
       email: email
     }
