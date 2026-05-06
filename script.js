@@ -112,20 +112,6 @@ function submitForm(event) {
   alert("Form submitted");
 }
 
-function trackBtn1() {
-  dataLayer.push({
-    event: "btn1",
-    cta_text: "Explore Books"
-  });
-}
-
-function trackBtn2() {
-  dataLayer.push({
-    event: "btn2",
-    cta_text: "Buy Now",
-    section_name: "Hero Banner"
-  });
-}
 // ===============================
 // CONSENT FUNCTIONS
 // ===============================
