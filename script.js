@@ -227,4 +227,30 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     if (banner) banner.style.display = "block";
   }
+
+  // ===============================
+// CTA BUTTON TRACKING
+// ===============================
+
+function trackBtn1() {
+
+  dataLayer.push({
+    event: "btn1",
+    cta_text: "Explore Books"
+  });
+
+  console.log("btn1 fired");
+}
+
+
+function trackBtn2() {
+
+  dataLayer.push({
+    event: "btn2",
+    cta_text: "Buy Now",
+    section_name: "Hero Banner"
+  });
+
+  console.log("btn2 fired");
+}
 });
