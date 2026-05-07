@@ -75,6 +75,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe>
   <button onclick="trackBtn1()">Button 1</button>
 
 <button onclick="trackBtn2()">Button 2</button>
+  
 </section>
 
 <!-- CONSENT BANNER -->
@@ -123,7 +124,6 @@ function trackBtn1() {
   dataLayer.push({
     event: "btn1",
     cta_text: "Explore Books",
-    section_name: undefined
   });
 
   console.log("btn1 fired");
