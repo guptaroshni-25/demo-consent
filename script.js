@@ -33,7 +33,7 @@ function viewProduct(book) {
       category: "books"
     }
   });
-);
+
 
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
