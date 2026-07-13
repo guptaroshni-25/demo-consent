@@ -22,6 +22,7 @@ function viewProduct(book) {
     return;
   }
 
+  // Store selected product globally (IMPORTANT)
   localStorage.setItem("selectedProduct", JSON.stringify(book));
 
   dataLayer.push({
@@ -32,11 +33,7 @@ function viewProduct(book) {
       category: "books"
     }
   });
-
-  // Adobe Launch Direct Call
- // if (window._satellite) {
-//    _satellite.track("view_item");
- // }
+);
 
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
@@ -50,6 +47,7 @@ function viewProduct(book) {
 // ===============================
 function addToCart(book) {
 
+  // If book not passed → get from localStorage
   if (!book) {
     book = JSON.parse(localStorage.getItem("selectedProduct"));
   }
@@ -66,13 +64,8 @@ function addToCart(book) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("add_to_cart");
-  }
-
   alert("Added to cart");
 }
-
 
 // ===============================
 // PURCHASE (DYNAMIC)
@@ -95,19 +88,14 @@ function buyNow(book) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("purchase");
-  }
-
   alert("Purchase initiated");
 }
 
 
 // ===============================
-// FORM SUBMIT
+// FORM SUBMIT (WITH DATA)
 // ===============================
 function submitForm(event) {
-
   event.preventDefault();
 
   const name = document.getElementById("userName").value;
@@ -121,20 +109,15 @@ function submitForm(event) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("form_submit");
-  }
-
   alert("Form submitted");
 }
-
 
 // ===============================
 // CONSENT FUNCTIONS
 // ===============================
 
+// Accept All
 function acceptAll() {
-
   gtag('consent', 'update', {
     analytics_storage: 'granted',
     ad_storage: 'granted',
@@ -157,8 +140,8 @@ function acceptAll() {
 }
 
 
+// Reject All
 function rejectAll() {
-
   gtag('consent', 'update', {
     analytics_storage: 'denied',
     ad_storage: 'denied',
@@ -181,8 +164,8 @@ function rejectAll() {
 }
 
 
+// Save Preferences
 function savePreferences() {
-
   const analytics = document.getElementById("analyticsConsent")?.checked;
   const ads = document.getElementById("adsConsent")?.checked;
 
@@ -210,25 +193,20 @@ function savePreferences() {
 
 
 // ===============================
-// BANNER
+// BANNER CONTROL
 // ===============================
 function hideBanner() {
-
   const banner = document.getElementById("consent-banner");
-
-  if (banner) {
-    banner.style.display = "none";
-  }
-
+  if (banner) banner.style.display = "none";
 }
 
 
 // ===============================
-// LOAD CONSENT
+// LOAD CONSENT STATE
 // ===============================
 document.addEventListener("DOMContentLoaded", function () {
 
-  sessionStorage.setItem("sessionUser", "active");
+   sessionStorage.setItem("sessionUser", "active");
 
   const banner = document.getElementById("consent-banner");
 
@@ -238,20 +216,20 @@ document.addEventListener("DOMContentLoaded", function () {
   if (analytics !== null && ads !== null) {
 
     gtag('consent', 'update', {
-      analytics_storage: analytics === "true" ? "granted" : "denied",
-      ad_storage: ads === "true" ? "granted" : "denied",
-      ad_user_data: ads === "true" ? "granted" : "denied",
-      ad_personalization: ads === "true" ? "granted" : "denied"
+      analytics_storage: analytics === "true" ? 'granted' : 'denied',
+      ad_storage: ads === "true" ? 'granted' : 'denied',
+      ad_user_data: ads === "true" ? 'granted' : 'denied',
+      ad_personalization: ads === "true" ? 'granted' : 'denied'
     });
 
     hideBanner();
 
   } else {
-
-    if (banner) {
-      banner.style.display = "block";
-    }
-
+    if (banner) banner.style.display = "block";
   }
+
+  // ===============================
+// CTA BUTTON TRACKING
+// ===============================
 
 });
