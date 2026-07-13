@@ -33,10 +33,6 @@ function viewProduct(book) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("view_item");
-  }
-
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
     "&price=" + encodeURIComponent(book.price) +
@@ -65,9 +61,6 @@ function addToCart(book) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("add_to_cart");
-  }
 
   alert("Added to cart");
 }
@@ -94,10 +87,6 @@ function buyNow(book) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("purchase");
-  }
-
   alert("Purchase initiated");
 }
 
@@ -120,8 +109,7 @@ function submitForm(event) {
     }
   });
 
-  if (window._satellite) {
-    _satellite.track("form_submit");
+
   }
 
   alert("Form submitted");
