@@ -34,9 +34,9 @@ function viewProduct(book) {
   });
 
   // Adobe Launch Direct Call
-  if (window._satellite) {
-    _satellite.track("view_item");
-  }
+ // if (window._satellite) {
+//    _satellite.track("view_item");
+ // }
 
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
