@@ -117,6 +117,14 @@ window.addEventListener("DOMContentLoaded", function () {
   document.getElementById("product-name").innerText = params.get("name");
   document.getElementById("product-price").innerText = "Price: " + params.get("price");
   document.getElementById("product-img").src = params.get("img");
+  dataLayer.push({
+  event: "view_item",
+  ecommerce: {
+    item_name: params.get("name"),
+    price: params.get("price"),
+    category: "books"
+  }
+});
 });
 
 </script>
