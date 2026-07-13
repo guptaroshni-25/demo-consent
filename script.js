@@ -25,15 +25,6 @@ function viewProduct(book) {
   // Store selected product globally (IMPORTANT)
   localStorage.setItem("selectedProduct", JSON.stringify(book));
 
-  dataLayer.push({
-    event: "view_item",
-    ecommerce: {
-      item_name: book.name,
-      price: book.price,
-      category: "books"
-    }
-  });
-
 
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
