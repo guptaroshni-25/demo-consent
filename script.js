@@ -34,6 +34,10 @@ function viewProduct(book) {
     }
   });
 
+  document.dispatchEvent(
+    new CustomEvent("view_item")
+);
+
   window.location.href =
     "product-detail.html?name=" + encodeURIComponent(book.name) +
     "&price=" + encodeURIComponent(book.price) +
@@ -66,6 +70,7 @@ function addToCart(book) {
   alert("Added to cart");
 }
 
+document.dispatchEvent(new CustomEvent("add_to_cart"));
 
 // ===============================
 // PURCHASE (DYNAMIC)
