@@ -67,7 +67,7 @@ function buyNow(book) {
     book = JSON.parse(localStorage.getItem("selectedProduct"));
   }
 
-  dataLayer.push({
+  /*dataLayer.push({
     event: "purchase",
     ecommerce: {
       item_name: book.name,
@@ -77,7 +77,15 @@ function buyNow(book) {
     user: {
       user_type: userStatus
     }
-  });
+  });*/
+
+  dataLayer.push({
+  event: "purchase",
+  ecommerce: {
+    item_name: book.name,
+    price: book.price
+  }
+});
 
   alert("Purchase initiated");
 }
