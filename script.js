@@ -79,11 +79,13 @@ function buyNow(book) {
     }
   });*/
 
-  dataLayer.push({
+  adobeDataLayer.push({
   event: "purchase",
-  ecommerce: {
-    item_name: book.name,
-    price: book.price
+  data: {
+    product: {
+      name: "Atomic Habits",
+      price: 499
+    }
   }
 });
 
