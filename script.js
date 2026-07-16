@@ -1,7 +1,6 @@
 // ===============================
 // GLOBAL USER VARIABLE
 // ===============================
-window.adobeDataLayer = window.adobeDataLayer || [];
 var userStatus = "guest";
 
 
@@ -22,16 +21,7 @@ function viewProduct(book) {
     console.error("Book object missing ❌");
     return;
   }
-adobeDataLayer.push({
-  event: "view_item",
-  data: {
-    product: {
-      name: book.name,
-      price: book.price,
-      category: "books"
-    }
-  }
-});
+
   // Store selected product globally (IMPORTANT)
   localStorage.setItem("selectedProduct", JSON.stringify(book));
 
