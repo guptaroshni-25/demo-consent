@@ -20,8 +20,17 @@ function viewProduct(book) {
   if (!book) {
     console.error("Book object missing ❌");
     return;
+  }.
+adobeDataLayer.push({
+  event: "view_item",
+  data: {
+    product: {
+      name: book.name,
+      price: book.price,
+      category: "books"
+    }
   }
-
+});
   // Store selected product globally (IMPORTANT)
   localStorage.setItem("selectedProduct", JSON.stringify(book));
 
@@ -43,7 +52,7 @@ function addToCart(book) {
     book = JSON.parse(localStorage.getItem("selectedProduct"));
   }
 
-  dataLayer.push({
+ /* dataLayer.push({
     event: "add_to_cart",
     ecommerce: {
       item_name: book.name,
@@ -53,7 +62,18 @@ function addToCart(book) {
     user: {
       user_type: userStatus
     }
-  });
+  });*/
+
+  adobeDataLayer.push({
+  event: "add_to_cart",
+  data: {
+    product: {
+      name: book.name,
+      price: book.price,
+      category: "books"
+    }
+  }
+});
 
   alert("Added to cart");
 }
@@ -80,15 +100,15 @@ function buyNow(book) {
   });*/
 
   adobeDataLayer.push({
-  event: "purchase",
-  data: {
-    product: {
-      name: "Atomic Habits",
-      price: 499
+    event: "purchase",
+    data: {
+      product: {
+        name: book.name,
+        price: book.price,
+        category: "books"
+      }
     }
-  }
-});
-
+  });
   alert("Purchase initiated");
 }
 
