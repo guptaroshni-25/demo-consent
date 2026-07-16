@@ -1,6 +1,7 @@
 // ===============================
 // GLOBAL USER VARIABLE
 // ===============================
+window.adobeDataLayer = window.adobeDataLayer || [];
 var userStatus = "guest";
 
 
@@ -20,7 +21,7 @@ function viewProduct(book) {
   if (!book) {
     console.error("Book object missing ❌");
     return;
-  }.
+  }
 adobeDataLayer.push({
   event: "view_item",
   data: {
