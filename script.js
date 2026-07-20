@@ -8,7 +8,8 @@ var userStatus = "guest";
 // NAVIGATION FUNCTIONS
 // ===============================
 function exploreBooks() {
-  window.location.href = "products.html";
+  console.log("Explore Function Called");
+   // window.location.href = "products.html";
 }
 
 
